@@ -88,7 +88,7 @@ export const List = ({ header }) => {
               >
                 {card}
               </li>
-              <button onClick={() => deleteHandler(index)}>Delete Card</button>
+              {/* <button onClick={() => deleteHandler(index)}>Delete Card</button> */}
             </div>
           ))}
         </ul>
