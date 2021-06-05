@@ -17,7 +17,7 @@ export const ListBoard = () => {
 
   return (
     <div>
-      <div>{Lists}</div>
+      <div className="list_boards">{Lists}</div>
     </div>
   );
 };

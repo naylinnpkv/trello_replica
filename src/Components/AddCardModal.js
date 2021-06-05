@@ -4,7 +4,6 @@ export const AddCardModal = (props) => {
   const { newCard, newCardHandler, addNewCard } = props;
   return (
     <div>
-      I am AddCardModal
       <div>
         <input
           type="text"
