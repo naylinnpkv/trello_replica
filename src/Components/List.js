@@ -6,31 +6,35 @@ import { AddCardModal } from "./AddCardModal";
 import "./style/List.style.css";
 //_________________STYLE__________________//
 
-export const List = (props) => {
-  const [newCards, setNewCards] = useState([]);
+export const List = ({ header }) => {
+  //all cards
+  const [Cards, setCards] = useState([]);
+
+  //new card
   const [newCard, setNewCard] = useState("");
+
   const [addingCard, setAddingCard] = useState(false);
-  // const [data, setData] = useState("");
 
   //_____________________States__________________//
 
+  //__________________________Event Handlers________________//
   const newCardHandler = (e) => {
     setNewCard(e.target.value);
-    console.log(typeof newCard);
     e.preventDefault();
   };
   const addNewCard = () => {
+    //preventing empty form submission
     if (newCard.length === 0) {
       alert("Adding an empty card is not so productive !");
       return;
     }
-    setNewCards([...newCards, newCard]);
+    setCards([...Cards, newCard]);
     setNewCard("");
     setAddingCard(false);
     return;
   };
 
-  const { header } = props;
+  //__________________________Event Handlers_______________________//
 
   //_____________________DRAG AND DROP_____________________//
 
@@ -38,45 +42,33 @@ export const List = (props) => {
   const dragStarted = (e) => {
     source = e.target;
     e.dataTransfer.setData("text/plain", e.target.innerHTML);
-    // e.dataTransfer.effectAllowed = "move";
   };
   const draggingOver = (e) => {
     e.preventDefault();
-    // e.dataTransfer.dropEffect = "move";
   };
 
   const draggingLeave = (e) => {
     e.preventDefault();
-    // e.dataTransfer.dropEffect = "move";
   };
 
   const dropped = (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    //switching the html value between elements from drag and drop
     source.innerHTML = e.target.innerHTML;
     e.target.innerHTML = e.dataTransfer.getData("text/plain");
-    const arr = [...newCards];
-    arr[returnIndex(arr, source.id)] = e.target.id;
-    arr[returnIndex(arr, e.target.id)] = source.id;
+  };
 
-    setNewCards(arr);
-  };
-  const returnIndex = (cards, value) => {
-    for (let i = 0; i < cards.length; i++) {
-      if (cards[i] === value) {
-        return i;
-      }
-    }
-  };
   //____________________DRAG AND DROP_______________________//
 
   return (
     <div>
       <div></div>
       <h3>{header}</h3>
-      <ul>
-        {newCards.map((card, index) => (
-          <div>
+      <div>
+        <ul>
+          {Cards.map((card, index) => (
             <li
               key={index}
               draggable
@@ -85,22 +77,24 @@ export const List = (props) => {
               onDragOver={draggingOver}
               onDragLeave={draggingLeave}
               onDrop={dropped}
-              id={card}
             >
               {card}
             </li>
-          </div>
-        ))}
-      </ul>
+          ))}
+        </ul>
+      </div>
       {addingCard && (
         <AddCardModal
           newCard={newCard}
           newCardHandler={newCardHandler}
           addNewCard={addNewCard}
           header={header}
+          addingCard={addingCard}
         />
       )}
-      <button onClick={() => setAddingCard(!addingCard)}>Add a Card</button>
+      {!addingCard && (
+        <button onClick={() => setAddingCard(!addingCard)}>Add a Card</button>
+      )}
       {addingCard && (
         <button
           onClick={() => {

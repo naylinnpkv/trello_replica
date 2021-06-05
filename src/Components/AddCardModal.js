@@ -11,7 +11,7 @@ export const AddCardModal = (props) => {
           placeholder="Add a new card..."
           onChange={newCardHandler}
         />
-        <input type="submit" onClick={addNewCard} />
+        <input type="submit" onClick={addNewCard} value="Add a card" />
       </div>
     </div>
   );

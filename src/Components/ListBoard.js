@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style/ListBoard.style.css";
 //_________________Style_________________//
 
@@ -7,17 +7,16 @@ import { List } from "./List";
 //_________________COMPONENTS___________//
 
 export const ListBoard = () => {
-  //____________________STATES_________________________//
+  //headers will be constant for this assignment
   const headers = ["To Do", " In Progress", "QA", "Done"];
-  const Lists = [];
-
-  for (let i = 0; i < headers.length; i++) {
-    Lists.push(<List key={i} header={headers[i]} />);
-  }
 
   return (
     <div>
-      <div className="list_boards">{Lists}</div>
+      <div className="list_boards">
+        {headers.map((header, index) => (
+          <List header={header} key={index} />
+        ))}
+      </div>
     </div>
   );
 };

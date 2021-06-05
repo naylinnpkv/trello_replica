@@ -1,0 +1,24 @@
+What I focused
+
+- High-Level Requirements
+- Basic Functionalities
+- Edge Cases and bugs
+- Component Structure
+- State Data Structure
+- Researching Drag and Drop feature without using libraries
+
+
+
+What I would improve if I have more time
+
+- Styling (Making UI responsive)
+- Testing
+
+
+Additional Notes:
+
+- I wasn't very sure about text validation as all the input types are string. I added alert for empty card submission though.
+- I spent some time on a careless bug and had to take all 6 hours
+- It was definitely a fun Project and Thank you.
+
+
