@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AddCardModal } from "./AddCardModal";
 export const List = (props) => {
-  const { taskCard, addCardHandler } = props;
+  const [newCards, setNewCards] = useState(["Home"]);
+  const [newCard, setNewCard] = useState("");
+  const [addingCard, setAddingCard] = useState(false);
+
+  const newCardHandler = (e) => {
+    setNewCard(e.target.value);
+    e.preventDefault();
+  };
+  const addNewCard = () => {
+    setNewCards([...newCards, newCard]);
+    setNewCard("");
+    setAddingCard(false);
+  };
+
+  const { header } = props;
 
   return (
     <div>
       <div></div>
-      <h3>{taskCard.header}</h3>
+      <h3>{header}</h3>
       <ul>
-        {taskCard.cards.map((card, ele) => (
-          <li>{card}</li>
+        {newCards.map((card, index) => (
+          <li key={index}>{card}</li>
         ))}
       </ul>
-      {taskCard.addingCard === true && <AddCardModal />}
-      <button onClick={() => addCardHandler(taskCard.header)}>
-        Add a Card
-      </button>
+      {addingCard === true && (
+        <AddCardModal
+          newCard={newCard}
+          newCardHandler={newCardHandler}
+          addNewCard={addNewCard}
+          header={header}
+        />
+      )}
+      <button onClick={() => setAddingCard(!addingCard)}>Add a Card</button>
     </div>
   );
 };
