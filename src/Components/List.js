@@ -33,7 +33,15 @@ export const List = ({ header }) => {
     setAddingCard(false);
     return;
   };
+  const deleteHandler = (index) => {
+    const tempCards = [...Cards];
 
+    const deletedCards = tempCards.filter((card) => {
+      if (tempCards[index] !== card) return card;
+    });
+    setCards(deletedCards);
+    return;
+  };
   //__________________________Event Handlers_______________________//
 
   //_____________________DRAG AND DROP_____________________//
@@ -69,17 +77,19 @@ export const List = ({ header }) => {
       <div>
         <ul>
           {Cards.map((card, index) => (
-            <li
-              key={index}
-              draggable
-              className="cards"
-              onDragStart={dragStarted}
-              onDragOver={draggingOver}
-              onDragLeave={draggingLeave}
-              onDrop={dropped}
-            >
-              {card}
-            </li>
+            <div key={index} className="card">
+              <li
+                draggable
+                className="cards"
+                onDragStart={dragStarted}
+                onDragOver={draggingOver}
+                onDragLeave={draggingLeave}
+                onDrop={dropped}
+              >
+                {card}
+              </li>
+              <button onClick={() => deleteHandler(index)}>Delete Card</button>
+            </div>
           ))}
         </ul>
       </div>
